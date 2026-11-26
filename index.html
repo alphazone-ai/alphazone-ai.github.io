@@ -676,9 +676,7 @@ a.s-btn { display: inline-flex; align-items: center; text-decoration: none; }
   .s-hero, .s-grid, .s-grid.three, .s-band, .s-pillars, .s-bm-head { grid-template-columns: minmax(0, 1fr); }
   .s-feat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .s-duo, .s-azbot, .s-flist, .s-mocks, .s-cv-head, .cv-bots, .cv-bundle { grid-template-columns: minmax(0, 1fr); }
-  .m-app { grid-template-columns: minmax(0, 1fr); }
-  .m-side { display: none; }
-  .m-grid { grid-template-columns: minmax(0, 1fr); }
+  .m-app { width: 520px; }
   .s-stats, .s-nav-cta { display: none; }
   .s-steps { grid-template-columns: minmax(0, 1fr); }
   .s-links { display: none; }
@@ -1224,6 +1222,20 @@ body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
       .catch(function () { btn.disabled = false; say("err", "err"); })
       .then(function () { busy = false; });
   });
+})();
+</script>
+<script>
+/* AutoBot Deploy mockups: on narrow screens keep the exact desktop layout and scale it down to fit */
+(function () {
+  function fit() {
+    document.querySelectorAll(".m-win").forEach(function (w) {
+      var app = w.querySelector(".m-app"); if (!app) return;
+      var narrow = window.matchMedia("(max-width: 760px)").matches;
+      app.style.zoom = narrow ? Math.min(1, w.clientWidth / 520).toFixed(4) : "";
+    });
+  }
+  window.addEventListener("resize", fit); window.addEventListener("load", fit); fit();
+  document.addEventListener("click", function () { setTimeout(fit, 50); });
 })();
 </script>
 </body>
