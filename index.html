@@ -1096,13 +1096,25 @@ body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
   var url = document.querySelector(".s-url");
   var AZ_TITLES = { home: "AlphaZone · Only alphas in here", roboquant: "Roboquant · AlphaZone", "bm-studios": "BM Studios · AlphaZone",
     "orb-bot": "AlphaZone ORB Portfolio Bot", champvision: "ChampVision AI · AlphaZone", communities: "AutoBot Deploy · AlphaZone" };
-  function go(page, noScroll) {
+  /* mode: "push" = new browser history entry (clicks), "replace" = first load, "none" = browser back/forward */
+  var live = typeof window.AZ_BASE === "string" && !!(window.history && history.pushState);
+  function pageFromPath() {
+    var rest = location.pathname.slice((window.AZ_BASE || "/").length).replace(/\/.*$/, "");
+    return PAGES.indexOf(rest) >= 0 ? rest : "home";
+  }
+  function go(page, noScroll, mode) {
     if (PAGES.indexOf(page) < 0) page = "home";
+    if (mode === undefined) mode = "push";
+    if (page === site.dataset.page && mode === "push") mode = "none";
     site.dataset.page = page;
     site.querySelectorAll(".s-page").forEach(function (el) { el.hidden = el.dataset.page !== page; });
     if (url) url.textContent = "alphazone.ai" + (page === "home" ? "" : "/" + page);
-    if (typeof window.AZ_BASE === "string" && window.history && history.replaceState) {
-      try { history.replaceState(null, "", window.AZ_BASE + (page === "home" ? "" : page + "/") + location.hash.replace(/^#?$/, "")); } catch (e) {}
+    if (live) {
+      var target = window.AZ_BASE + (page === "home" ? "" : page + "/");
+      try {
+        if (mode === "push") history.pushState({ page: page }, "", target);
+        else if (mode === "replace") history.replaceState({ page: page }, "", target + location.hash.replace(/^#?$/, ""));
+      } catch (e) {}
       document.title = AZ_TITLES[page] || AZ_TITLES.home;
     }
     if (window.azPageLang) window.azPageLang(page);
@@ -1121,9 +1133,12 @@ body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
     var t = e.target.closest(".s-logo[data-go]");
     if (t && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); go("home"); }
   });
+  window.addEventListener("popstate", function (e) {
+    go((e.state && e.state.page) || pageFromPath(), true, "none");
+  });
   var start = null;
   try { start = window.AZ_START || new URLSearchParams(location.search).get("page"); } catch (e) {}
-  go(start || "home", true);
+  go(start || "home", true, "replace");
 })();
 </script>
 <script>
