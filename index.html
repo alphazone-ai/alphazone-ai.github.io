@@ -467,7 +467,7 @@ td.what { color: var(--muted); }
 .site[data-page="home"] .s-back { display: none; }
 .site:not([data-page="home"]) .s-links, .site:not([data-page="home"]) .s-nav-cta { display: none; }
 .s-links span[data-go], .s-links span[data-scroll] { cursor: pointer; }
-.s-paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.s-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .s-path { text-align: left; font: inherit; color: var(--s-fg); background: rgba(255,255,255,0.02); border: 1px solid var(--s-line); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; min-width: 0; }
 .s-path:hover { border-color: rgba(56,232,255,0.6); box-shadow: 0 0 26px rgba(56,232,255,0.14); transform: translateY(-1px); }
 .s-path:focus-visible { outline: 2px solid var(--s-cyan); outline-offset: 3px; }
@@ -477,7 +477,6 @@ td.what { color: var(--muted); }
 .s-path.s-soon { cursor: default; border-style: dashed; }
 .s-path.s-soon:hover { transform: none; box-shadow: none; border-color: var(--s-line); }
 .s-sub { border-top: 0; padding-top: 36px; }
-@media (min-width: 721px) { .s-paths > .s-soon { grid-column: span 2; } }
 @media (max-width: 720px) { .s-paths { grid-template-columns: minmax(0, 1fr); } }
 .s-nav-r { display: flex; align-items: center; gap: 12px; }
 .s-lang { display: inline-flex; border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 2px; }
@@ -765,7 +764,7 @@ body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
               
               <button class="s-path" type="button" data-go="champvision"><span class="s-path-top"><span class="s-ic ic-cv" role="img" aria-label="ChampVision AI logo"></span><span class="s-label">Ready-to-use bots</span></span><b>ChampVision AI</b><span class="s-path-d">Two bots for MNQ and MGC on TradingView. German-speaking community.</span><span class="s-path-go">Open →</span></button>
               <button class="s-path" type="button" data-go="communities"><span class="s-path-top"><span class="s-ic ic-abd" role="img" aria-label="AutoBot Deploy logo"></span><span class="s-label">For community owners</span></span><b>AutoBot Deploy</b><span class="s-path-d">Your own branded trading app for your community.</span><span class="s-path-go">Open →</span></button>
-              <div class="s-path s-soon"><span class="s-label">Coming soon</span><b>Trading Agent</b><span class="s-path-d">An AI agent that trades with you.</span></div>
+              
             </div>
           </div>
           </div>
